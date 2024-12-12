@@ -16,6 +16,9 @@ In order to use MultiLick.R, you first need to collect the raw .wav lickometer d
 Once you have your recordings, you can process them via MultiLick. The script itself contains a function that is intended to be called by other scripts; we recommend against changing the MultiLick.r script itself in most cases.
 The code below shows an example of using MultiLick to process a folder of .wav files, saving the results to a single .csv file.
 
+NOTE:
+The MultiLick function doesn't save its output by default. To save it, you have to provide a .csv filename as an argument to `OutputFile=`.
+
 ```{r}
 source('MultiLick.R') #path to MultLick.R
 MultiLick(Folder = 'SampleData/', KeyWord = '.wav', PlotSignal = "B", OutputFile = "SampleOutput/Output.csv")
