@@ -24,8 +24,8 @@
 #' @param ThresholdSD_R Numeric: Number of Standard Deviations from the mean to set the lick detection threshold for the right track
 #' @param Start Time to initiate analysis, in minutes
 #' @param Stop Time to terminate analysis, in minutes
-#' @param Output String: filepath of a .csv file created containing microstructure findings
-#' @param ILIFile String: filepath of a .csv file created containging all ILIs from files analyzed
+#' @param OutputFile String: filepath of a .csv file created containing microstructure findings
+#' @param ILIFile String: filepath of a .csv file created containing all ILIs from files analyzed
 #' @param Title String: Title appended to data saved in the global environment
 #' @param LeftLab String: Title of the left recording channel
 #' @param RightLab String: Title of the Right recording channel
@@ -49,12 +49,12 @@ MultiLick <- function(Folder,  #sets the folder containing the data
                     ThresholdSD_R = 3, #threshold sds from the mean
                     Start = 0, #Time to initiate analysis of recording, in minutes
                     Stop = NULL, #Time to terminate analysis of recording, in minutes
-                    Output = F, #sets a .csv file to save output to
+                    OutputFile = F, #sets a .csv file to save output to
                     ILIFile = F, #sets a .csv to save ILIs to
                     Title = "Lickout", #sets a title for data output
                     LeftLab = "Left", #title of left track
                     RightLab = "Right", #title of right track
-                    PlotSignal = F, #choose tracks to plot
+                    PlotSignal = F, #choose tracks to plot, "L" "R" or "B"
                     DSF = 2, #Downsampling factor for plotsignal. Warning: can hide some threshold-crossing events.
                     PlotRawInterval = F, #plot raw interval histogram
                     PlotInterval = F, #plot filtered interval hist.
@@ -492,8 +492,8 @@ MultiLick <- function(Folder,  #sets the folder containing the data
       LickExport <- Lickout
     }
     
-    if (Output != F) {
-      write.csv(LickExport, file = Output, row.names = F)
+    if (OutputFile != F) {
+      write.csv(LickExport, file = OutputFile, row.names = F)
     }
     
     if (WavData@stereo == T) {
