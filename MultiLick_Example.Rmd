@@ -9,13 +9,22 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Using MultiLick
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+In order to use MultiLick.R, you first need to collect the raw .wav lickometer data. We recommend recording in Audacity, and strongly recommend a sample rate of not greater than 1000hz. The default sample rate of Audacity is 44000hz, which is dramatically higher temporal resolution than is required to detect licks (which tend to have a maximum rate of ~9hz), and results in recordings that are overlarge and take a very long time for MultiLick to process.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Once you have your recordings, you can process them via MultiLick. The script itself contains a function that is intended to be called by other scripts; we recommend against changing the MultiLick.r script itself in most cases.
+The code below shows an example of using MultiLick to process a folder of .wav files, saving the results to a single .csv file.
 
 ```{r}
-source('MultiLick.R')
-MultiLick(Folder = 'SampleData/', KeyWord = '.wav', PlotSignal = "B", Output = "SampleOutput/")
+source('MultiLick.R') #path to MultLick.R
+MultiLick(Folder = 'SampleData/', KeyWord = '.wav', PlotSignal = "B", OutputFile = "SampleOutput/Output.csv")
+```
+
+The resulting data can then be analyzed statistically:
+
+```{r}
+LickData = read.csv(file = "SampleOutput/Output.csv")
+mean(LickData$LLickTotal)
+t.test(x = LickData$LLickTotal, y = LickData$RLickTotal)
 ```
